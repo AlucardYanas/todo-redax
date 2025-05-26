@@ -35,10 +35,10 @@
       "@types/*": ["src/types/*"]
     },
 
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "types": [],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "vitest.config.ts", "src/setupTests.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
