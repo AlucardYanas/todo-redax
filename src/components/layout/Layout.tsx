@@ -1,30 +1,14 @@
 import { Box, Container } from '@chakra-ui/react';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
-interface LayoutProps {
+interface Props {
   children: ReactNode;
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout: FC<Props> = ({ children }) => {
   return (
-    <Box bg="gray.50" minH="100vh" py={10}>
-      <Container
-        maxW="1000px"
-        maxH="1000px"
-        bg="white"
-        borderRadius="lg"
-        boxShadow="xl"
-        p={8}
-        position="relative"
-        overflow="hidden"
-      >
-        <Box fontSize="6xl" color="pink.100" mb={8} textAlign="center">
-          todos
-        </Box>
-        <Box maxW="100%" overflow="auto" h="calc(100% - 120px)">
-          {children}
-        </Box>
-      </Container>
+    <Box minH="100vh" py={8} bg="gray.50">
+      <Container maxW="container.md">{children}</Container>
     </Box>
   );
 };

@@ -2,14 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [
-    react({
-      jsxImportSource: '@emotion/react',
-      babel: {
-        plugins: ['@emotion/babel-plugin'],
-      },
-    }),
-  ],
+  plugins: [react()],
   build: {
     target: 'esnext',
     minify: 'terser',
@@ -18,9 +11,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-chakra': ['@chakra-ui/react', '@emotion/react', '@emotion/styled'],
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-redux': ['@reduxjs/toolkit', 'react-redux'],
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['@chakra-ui/react', '@emotion/react', '@emotion/styled'],
+          'dnd-vendor': ['@dnd-kit/core', '@dnd-kit/sortable', '@dnd-kit/utilities'],
         },
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
@@ -32,6 +25,13 @@ export default defineConfig({
         drop_console: true,
         drop_debugger: true,
         pure_funcs: ['console.log'],
+        passes: 2,
+      },
+      mangle: {
+        toplevel: true,
+      },
+      format: {
+        comments: false,
       },
     },
     sourcemap: false,
@@ -48,5 +48,10 @@ export default defineConfig({
       'react-redux',
       'react-router-dom',
     ],
+  },
+  server: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000',
+    },
   },
 });
