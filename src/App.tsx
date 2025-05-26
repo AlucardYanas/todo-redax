@@ -1,6 +1,7 @@
-import React, { FC, lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import { Spinner, Center } from '@chakra-ui/react';
+import { FC, lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import Layout from './components/layout/Layout';
 
 const ToDoPage = lazy(() => import('./components/pages/ToDoPage'));

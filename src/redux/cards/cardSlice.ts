@@ -1,60 +1,96 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { CardType } from '../../types/CardTypes';
-import {
-  addCardThunk,
-  deleteCardThunk,
-  getCardsThunk,
-  updateCardThunk,
-  getCardStatusThunk,
-} from './cardAsyncAction';
+
+import { localStorageService } from '../../services/localStorageService';
+import type { CardType, FilterStatus, NewCardType, UpdateCardType } from '../../types/CardTypes';
 
 type CardState = {
-  data: CardType[];
-  edit: CardType | null;
-  status: string | null;
+  cards: CardType[];
+  filter: FilterStatus;
+  editingCard: CardType | null;
 };
 
 const initialState: CardState = {
-  data: [],
-  edit: null,
-  status: null,
+  cards: localStorageService.getCards(),
+  filter: 'all',
+  editingCard: null,
 };
 
 const cardSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    editCard(state, { payload }: PayloadAction<CardType | null>) {
-      state.edit = payload;
+    loadCards: (state) => {
+      state.cards = localStorageService.getCards();
     },
-    clearAllCards(state) {
-      state.data = [];
+
+    addCard: (state, { payload }: PayloadAction<NewCardType>) => {
+      const newCard: CardType = {
+        ...payload,
+        id: localStorageService.generateId(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      state.cards.push(newCard);
+      localStorageService.saveCards(state.cards);
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getCardsThunk.fulfilled, (state, { payload }: PayloadAction<CardType[]>) => {
-        state.data = payload;
-      })
-      .addCase(addCardThunk.fulfilled, (state, { payload }: PayloadAction<CardType>) => {
-        state.data.push(payload);
-      })
-      .addCase(deleteCardThunk.fulfilled, (state, { payload }: PayloadAction<number>) => {
-        state.data = state.data.filter((card) => card.id !== payload);
-      })
-      .addCase(updateCardThunk.fulfilled, (state, { payload }: PayloadAction<CardType>) => {
-        state.data = state.data.map((card) => (card.id === payload.id ? payload : card));
-      })
-      .addCase(
-        getCardStatusThunk.fulfilled,
-        (state, { payload }: PayloadAction<{ status: string }>) => {
-          state.status = payload.status;
-        },
+
+    deleteCard: (state, { payload }: PayloadAction<number>) => {
+      state.cards = state.cards.filter((card) => card.id !== payload);
+      localStorageService.saveCards(state.cards);
+    },
+
+    updateCard: (state, { payload }: PayloadAction<{ id: number; updates: UpdateCardType }>) => {
+      const { id, updates } = payload;
+      state.cards = state.cards.map((card) =>
+        card.id === id
+          ? {
+              ...card,
+              ...updates,
+              updatedAt: new Date().toISOString(),
+            }
+          : card,
       );
+      localStorageService.saveCards(state.cards);
+    },
+
+    setFilter: (state, { payload }: PayloadAction<FilterStatus>) => {
+      state.filter = payload;
+    },
+
+    setEditingCard: (state, { payload }: PayloadAction<CardType | null>) => {
+      state.editingCard = payload;
+    },
+
+    toggleCardStatus: (state, { payload }: PayloadAction<number>) => {
+      state.cards = state.cards.map((card) =>
+        card.id === payload
+          ? {
+              ...card,
+              status: card.status === 'active' ? 'completed' : 'active',
+              updatedAt: new Date().toISOString(),
+            }
+          : card,
+      );
+      localStorageService.saveCards(state.cards);
+    },
   },
 });
 
-export const { editCard, clearAllCards } = cardSlice.actions;
+export const {
+  loadCards,
+  addCard,
+  deleteCard,
+  updateCard,
+  setFilter,
+  setEditingCard,
+  toggleCardStatus,
+} = cardSlice.actions;
+
+export const selectFilteredCards = (state: { cards: CardState }) => {
+  const { cards, filter } = state.cards;
+  if (filter === 'all') return cards;
+  return cards.filter((card) => card.status === filter);
+};
 
 export default cardSlice;

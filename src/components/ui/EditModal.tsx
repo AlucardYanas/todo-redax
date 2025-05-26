@@ -1,4 +1,3 @@
-import React, { FC, memo, ChangeEvent } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -11,6 +10,8 @@ import {
   Select,
   Button,
 } from '@chakra-ui/react';
+import { FC, memo, ChangeEvent } from 'react';
+
 import type { CardType } from '../../types/CardTypes';
 
 interface EditModalProps {

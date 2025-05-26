@@ -1,5 +1,6 @@
-import React from 'react';
 import { ChakraProvider as BaseChakraProvider, createLocalStorageManager } from '@chakra-ui/react';
+import React from 'react';
+
 import theme from '../theme';
 
 const colorModeManager = createLocalStorageManager('todo-app-color-mode');

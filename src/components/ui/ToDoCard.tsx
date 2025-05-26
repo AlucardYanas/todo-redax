@@ -1,6 +1,7 @@
-import { Box, Text, IconButton, Flex, Checkbox } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import React, { FC, memo, useCallback, lazy, Suspense, ChangeEvent } from 'react';
+import { Box, Text, IconButton, Flex, Checkbox } from '@chakra-ui/react';
+import { FC, memo, useCallback, lazy, Suspense, ChangeEvent } from 'react';
+
 import type { CardType } from '../../types/CardTypes';
 import useEditModal from '../hooks/useEditModal';
 
