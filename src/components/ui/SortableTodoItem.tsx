@@ -92,13 +92,13 @@ const SortableTodoItem = ({ todo }: Props) => {
                 fontSize="lg"
                 fontWeight="medium"
                 textDecoration={todo.status === 'completed' ? 'line-through' : 'none'}
-                color={todo.status === 'completed' ? 'gray.500' : 'gray.800'}
+                color={todo.status === 'completed' ? 'gray.400' : 'gray.900'}
               >
                 {todo.title}
               </Text>
               <Text
                 fontSize="sm"
-                color={todo.status === 'completed' ? 'gray.500' : 'gray.600'}
+                color={todo.status === 'completed' ? 'gray.400' : 'gray.700'}
                 textDecoration={todo.status === 'completed' ? 'line-through' : 'none'}
               >
                 {todo.description}
@@ -138,30 +138,40 @@ const SortableTodoItem = ({ todo }: Props) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Редактировать задачу</ModalHeader>
+        <ModalContent bg="white">
+          <ModalHeader color="gray.900">Редактировать задачу</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>Заголовок</FormLabel>
+              <FormLabel color="gray.700">Заголовок</FormLabel>
               <Input
                 value={editedTitle}
                 onChange={(e) => setEditedTitle(e.target.value)}
                 placeholder="Введите заголовок"
+                color="gray.900"
+                bg="white"
+                borderColor="gray.300"
+                _placeholder={{ color: 'gray.400' }}
               />
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Описание</FormLabel>
+              <FormLabel color="gray.700">Описание</FormLabel>
               <Textarea
                 value={editedDescription}
                 onChange={(e) => setEditedDescription(e.target.value)}
                 placeholder="Введите описание"
+                color="gray.900"
+                bg="white"
+                borderColor="gray.300"
+                _placeholder={{ color: 'gray.400' }}
               />
             </FormControl>
 
             <Flex justify="flex-end" mt={6} gap={2}>
-              <Button onClick={onClose}>Отмена</Button>
+              <Button onClick={onClose} variant="outline" color="gray.700" borderColor="gray.300">
+                Отмена
+              </Button>
               <Button colorScheme="blue" onClick={handleEdit}>
                 Сохранить
               </Button>

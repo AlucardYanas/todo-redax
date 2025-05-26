@@ -1,18 +1,16 @@
-import { StrictMode, Suspense } from 'react';
+import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
-import { store } from './redux/store';
+
 import { ChakraProvider } from './providers/ChakraProvider';
-import React from 'react';
+import { store } from './redux/store';
 
 const criticalComponents = import('./components/critical');
-
-const App = React.lazy(() =>
-  import('./App').then((module) => criticalComponents.then(() => module)),
-);
+const App = lazy(() => import('./App').then((module) => criticalComponents.then(() => module)));
 
 function LoadingSpinner(): JSX.Element {
   return (

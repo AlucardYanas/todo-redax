@@ -10,49 +10,49 @@ export const TODO_ACTIONS = {
   SET_EDITING_TODO: 'todos/setEditingTodo',
 } as const;
 
-export interface TodoState {
+export type TodoState = {
   todos: CardType[];
   filter: FilterStatus;
   editingTodo: CardType | null;
-}
+};
 
-export interface LoadTodosAction {
+export type LoadTodosAction = {
   type: typeof TODO_ACTIONS.LOAD_TODOS;
   payload: CardType[];
-}
+};
 
-export interface AddTodoAction {
+export type AddTodoAction = {
   type: typeof TODO_ACTIONS.ADD_TODO;
   payload: NewCardType;
-}
+};
 
-export interface DeleteTodoAction {
+export type DeleteTodoAction = {
   type: typeof TODO_ACTIONS.DELETE_TODO;
   payload: number;
-}
+};
 
-export interface UpdateTodoAction {
+export type UpdateTodoAction = {
   type: typeof TODO_ACTIONS.UPDATE_TODO;
   payload: {
     id: number;
     updates: UpdateCardType;
   };
-}
+};
 
-export interface ToggleTodoStatusAction {
+export type ToggleTodoStatusAction = {
   type: typeof TODO_ACTIONS.TOGGLE_TODO_STATUS;
   payload: number;
-}
+};
 
-export interface SetFilterAction {
+export type SetFilterAction = {
   type: typeof TODO_ACTIONS.SET_FILTER;
   payload: FilterStatus;
-}
+};
 
-export interface SetEditingTodoAction {
+export type SetEditingTodoAction = {
   type: typeof TODO_ACTIONS.SET_EDITING_TODO;
   payload: CardType | null;
-}
+};
 
 export type TodoActionTypes =
   | LoadTodosAction

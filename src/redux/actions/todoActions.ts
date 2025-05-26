@@ -2,7 +2,6 @@ import { createAction } from '@reduxjs/toolkit';
 
 import type { CardType, FilterStatus, NewCardType, UpdateCardType } from '../../types/CardTypes';
 
-// Action Creators
 export const loadTodos = createAction<CardType[]>('todos/loadTodos');
 export const addTodo = createAction<NewCardType>('todos/addTodo');
 export const deleteTodo = createAction<number>('todos/deleteTodo');
