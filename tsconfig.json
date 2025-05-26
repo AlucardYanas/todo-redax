@@ -39,10 +39,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src",
-    "vitest.config.ts",
-    "src/setupTests.ts"
-  ],
+  "include": ["src", "vitest.config.ts", "src/setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -9,6 +9,7 @@ import {
   toggleTodoStatus,
   setFilter,
   setEditingTodo,
+  reorderTodos,
 } from '../actions/todoActions';
 import type { TodoState } from '../types/todoTypes';
 
@@ -66,5 +67,9 @@ export const todoReducer = createReducer(initialState, (builder) => {
     })
     .addCase(setEditingTodo, (state, action) => {
       state.editingTodo = action.payload;
+    })
+    .addCase(reorderTodos, (state, action) => {
+      state.todos = action.payload;
+      localStorageService.saveCards(state.todos);
     });
 });

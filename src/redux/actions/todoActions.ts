@@ -10,3 +10,4 @@ export const updateTodo = createAction<{ id: number; updates: UpdateCardType }>(
 export const toggleTodoStatus = createAction<number>('todos/toggleTodoStatus');
 export const setFilter = createAction<FilterStatus>('todos/setFilter');
 export const setEditingTodo = createAction<CardType | null>('todos/setEditingTodo');
+export const reorderTodos = createAction<CardType[]>('todos/reorderTodos');
