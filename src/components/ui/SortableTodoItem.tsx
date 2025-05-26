@@ -4,7 +4,6 @@ import {
   Flex,
   Text,
   IconButton,
-  useColorModeValue,
   useDisclosure,
   Modal,
   ModalOverlay,
@@ -48,9 +47,6 @@ const SortableTodoItem = ({ todo }: Props) => {
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const bg = useColorModeValue('white', 'gray.800');
-  const borderColor = useColorModeValue('gray.200', 'gray.600');
-
   const handleEdit = () => {
     dispatch(
       updateTodo({
@@ -71,9 +67,9 @@ const SortableTodoItem = ({ todo }: Props) => {
         style={style}
         p={4}
         mb={2}
-        bg={bg}
+        bg="white"
         borderWidth="1px"
-        borderColor={borderColor}
+        borderColor="gray.200"
         borderRadius="lg"
         boxShadow="sm"
         _hover={{ boxShadow: 'md' }}
@@ -96,7 +92,7 @@ const SortableTodoItem = ({ todo }: Props) => {
                 fontSize="lg"
                 fontWeight="medium"
                 textDecoration={todo.status === 'completed' ? 'line-through' : 'none'}
-                color={todo.status === 'completed' ? 'gray.500' : 'inherit'}
+                color={todo.status === 'completed' ? 'gray.500' : 'gray.800'}
               >
                 {todo.title}
               </Text>
